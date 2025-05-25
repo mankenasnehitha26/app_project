@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Colorful Task 2 – Lavender & Peach</title>
+  <style>
+    :root {
+      --lavender: #e6e6fa;
+      --peach: #ffd6c0;
+      --peach-dark: #ffb398;
+      --lavender-dark: #bdb3f5;
+      --card-bg: #fff9f5;
+      --accent: #ff7e67;
+      --accent-dark: #5c5470;
+      --text: #333;
+      --light-blue: #e6f0ff;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, var(--lavender), var(--peach));
+      color: var(--text);
+      transition: all 0.3s ease-in-out;
+    }
+
+    body.dark {
+      background: linear-gradient(to right, #1f1f2e, #3c325d);
+      color: #eee;
+    }
+
+    .navbar {
+      background: linear-gradient(90deg, var(--peach-dark), var(--lavender-dark));
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .navbar button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      background: var(--card-bg);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    section.form-section,
+    section.todo-section,
+    section.about-section {
+      background-color: var(--light-blue);
+    }
+
+    body.dark section {
+      background: #2f2f3f;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      padding: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form input, form select, form textarea, form button {
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    form button {
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .todo-section .todo-input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .todo-section input {
+      padding: 10px;
+      width: calc(100% - 90px);
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .todo-section button {
+      padding: 10px 15px;
+      background: var(--lavender-dark);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .todo-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0;
+    }
+
+    .todo-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffe3d3;
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 6px;
+    }
+
+    .todo-list li button {
+      background: crimson;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #4e4e6a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .todo-section .todo-input-group {
+        flex-direction: column;
+      }
+
+      .todo-section input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <h1>My Portfolio</h1>
+    <button onclick="toggleTheme()">🌗</button>
+  </nav>
+
+  <section class="about-section">
+    <h2>About Me</h2>
+    <p>Hello! I'm Snehitha, an enthusiastic photographer capturing moments through my lens. I offer professional photography services and love to collaborate on creative projects. Explore my sleek portfolio, get in touch easily, and enjoy a responsive design with toggleable dark mode to showcase my work beautifully!</p>
+  </section>
+
+  <div class="container">
+    <!-- Contact Form -->
+    <section class="form-section">
+      <h3>Contact Me</h3>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <input type="text" id="subject" placeholder="Subject" required>
+        <select id="gender" required>
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+        <select id="country" required>
+          <option value="">Select Country</option>
+          <option>India</option>
+          <option>USA</option>
+          <option>UK</option>
+          <option>Other</option>
+        </select>
+        <textarea id="message" rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <p id="formMessage"></p>
+    </section>
+
+    <!-- To-do List -->
+    <section class="todo-section">
+      <h3>My Daily To-Do</h3>
+      <div class="todo-input-group">
+        <input type="text" id="todoInput" placeholder="Add a task..." />
+        <button onclick="addTodo()">Add</button>
+      </div>
+
+      <h4>Pending</h4>
+      <ul class="todo-list" id="pendingList"></ul>
+
+      <h4>Completed</h4>
+      <ul class="todo-list" id="completedList"></ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 My Web Journey | Task 2 Completed with ✨Style✨</p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const formMessage = document.getElementById('formMessage');
+
+      if (!name || !email || !message || !phone) {
+        formMessage.textContent = "Please fill all required fields.";
+        formMessage.style.color = "red";
+        return;
+      }
+
+      const emailRegex = /^[^@]+@[^@]+\.[a-z]{2,}$/;
+      if (!emailRegex.test(email)) {
+        formMessage.textContent = "Please enter a valid email address.";
+        formMessage.style.color = "red";
+        return;
+      }
+
+      formMessage.textContent = "Form submitted successfully!";
+      formMessage.style.color = "green";
+      document.getElementById('contactForm').reset();
+    });
+
+    function addTodo() {
+      const input = document.getElementById('todoInput');
+      const task = input.value.trim();
+      if (!task) return;
+
+      const li = document.createElement('li');
+      const time = new Date().toLocaleTimeString();
+      li.innerHTML = `<span>${task} <small>(${time})</small></span>
+                      <button onclick="completeTodo(this)">Complete</button>`;
+      document.getElementById('pendingList').appendChild(li);
+      input.value = '';
+    }
+
+    function completeTodo(button) {
+      const li = button.parentElement;
+      // Remove Complete button
+      button.remove();
+      // Add Delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.style.background = 'crimson';
+      deleteBtn.onclick = () => li.remove();
+      li.appendChild(deleteBtn);
+
+      // Move to completed list
+      document.getElementById('completedList').appendChild(li);
+    }
+  </script>
+
+</body>
+</html>
